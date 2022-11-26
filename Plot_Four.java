@@ -1,9 +1,9 @@
 package plot_four;
 
+import game.Grid;
 import boardgame.Boardgame;
 import boardgame.Unit;
 import boardgame.Position;
-import game.Grid;
 import plot_four.Disc;
 
 public class Plot_Four extends Boardgame
