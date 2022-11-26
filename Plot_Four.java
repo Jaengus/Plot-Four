@@ -27,7 +27,12 @@ public class Plot_Four extends Boardgame
 	@Override
 	protected void setUnits(int rows, int cols) 
 	{
-		
+		Monad[][] monads = new Disc[rows][cols];
+		brigade = new Unit(monads);
+	}
+	
+	private Disc[][] discs(Monad[][] monads) {
+		return (Disc[][])monads;
 	}
 	
 	@Override
