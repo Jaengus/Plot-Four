@@ -29,14 +29,32 @@ public class Plot_Four extends Boardgame
 	{
 		Monad[][] monads = new Disc[rows][cols];
 		brigade = new Unit(monads);
+		Disc[][] discs = discs(monads);
+		
+		for(int row = 0; row < rows; row++) 
+		{
+			for(int col = 0; col < cols; col++) 
+			{
+				if(col < cols)
+				{
+					discs[row][col] = new Disc(new Circle(), "R", 1);
+				}
+				else
+				{
+					discs[row][col] = new Disc(new Circle(), "Y", 2);
+				}
+			}
+		}
 	}
 	
-	private Disc[][] discs(Monad[][] monads) {
+	private Disc[][] discs(Monad[][] monads) 
+	{
 		return (Disc[][])monads;
 	}
 	
 	@Override
-	protected void setGame() {
+	protected void setGame() 
+	{
 		setUnits(2,21);
 		setGrid(6,7);
 	}
