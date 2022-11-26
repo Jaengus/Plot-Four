@@ -1,5 +1,6 @@
 package plot_four;
 
+import game.Monad;
 import game.Grid;
 import boardgame.Boardgame;
 import boardgame.Unit;
@@ -28,10 +29,15 @@ public class Plot_Four extends Boardgame
 	{
 		
 	}
+	
+	@Override
+	protected void setGame() {
+		setUnits(2,21);
+		setGrid(6,7);
+	}
 
 	@Override
 	public void play() 
 	{
-		
 	}
 }
