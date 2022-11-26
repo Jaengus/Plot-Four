@@ -8,6 +8,7 @@ import plot_four.Disc;
 
 public class Plot_Four extends Boardgame
 {
+	@Override
 	protected void setGrid(int rows, int cols) 
 	{
 		Position[][] positions = new Position[rows][cols];
@@ -22,7 +23,14 @@ public class Plot_Four extends Boardgame
 		}
 	}
 	
+	@Override
 	protected void setUnits(int rows, int cols) 
+	{
+		
+	}
+
+	@Override
+	public void play() 
 	{
 		
 	}
