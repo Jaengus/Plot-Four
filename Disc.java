@@ -1,36 +1,50 @@
 package plot_four;
 
 import javafx.scene.Node;
-
+import game.Player;
 import game.Position;
 import game.Position_Manager;
 import game.Unit;
 
 public class Disc extends Unit
 {
-	public Disc(Node icon, String name, double value) 
+	public Disc(Player player, Node icon, String name, double value, Position position) 
 	{
-		super(icon, name, value);
+		super(player, icon, name, value, position);
 	}
-
-	public Position move(Position[][] grid, Position pos) 
+	
+	@Override
+	public void setPlayer(Player player) 
 	{
-		if (grid[pos.row][pos.col] == null)
+		// TODO Auto-generated method stub
+		this.player = player;
+	}
+	
+	@Override
+	public Position move(Position[][] grid, Position position) 
+	{
+		// TODO Auto-generated method stub
+		if (grid[position.row][position.col] == null)
 		{
 
 			//Drops down the rows before plotting a piece (if the column is open)
-			while (pos.row < grid.length && grid[pos.row][pos.col].ruler == null)
-				pos.row++;
+			while (position.row < grid.length && grid[position.row][position.col] == null)
+				position.row++;
 			
-			grid[--pos.row][pos.col] = pos;
+			//Assigns position to disc
+			this.position = position;
 			
-			//Plots the unit in the matrix
-			grid[pos.row][pos.col].ruler = this; 
+			//Assigns disc to position
+			position.ruler = this;
+			
+			//Plots disc and position within the grid
+			grid[--position.row][position.col] = position;
+			
 
 			//Returns position of most recent move
-			return pos;
+			return position;
 		} 
 		else
-			return null; // moves to make
+			return null; // No moves to make
 	}
 }
