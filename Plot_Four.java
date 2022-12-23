@@ -4,6 +4,7 @@ import javafx.scene.image.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import game.Monad;
+import game.Player;
 import game.Position;
 import game.Position_Manager;
 import game.Unit_Manager;
@@ -44,11 +45,11 @@ public class Plot_Four extends Boardgame
 			{
 				if(col < cols)
 				{
-					discs[row][col] = new Disc(new Circle(), "R", 1);
+					discs[row][col] = new Disc(new Player("Crow", "@capitanchuro"), new Circle(), "Red", 1, null);
 				}
 				else
 				{
-					discs[row][col] = new Disc(new Circle(), "Y", 2);
+					discs[row][col] = new Disc(new Player("Jaengus", "@jaengus"), new Circle(), "Yellow", 2, null);
 				}
 			}
 		}
@@ -67,35 +68,36 @@ public class Plot_Four extends Boardgame
 	}
 
 	@Override
-	protected boolean win(Position[][] grid, Position pos, int v, int u, int n) 
+	protected boolean win(Position[][] grid, Position position, int v, int u, int n) 
 	{
-		int r = pos.row, c = pos.col, count = 0;
+		int row = position.row, col = position.col, count = 0;
 
 		//Checks half a vertical, diagonal, or horizontal line based on the arguments assigned to r and c
-		while ((r >= 0 && c >= 0) && (r < grid.length && c < grid[r].length)) {
+		while ((row >= 0 && col >= 0) && (row < grid.length && col < grid[row].length)) 
+		{
 
-			if (grid[r][c].ruler == this)
+			if (grid[row][col].ruler == position.ruler)
 				count++;
 			else
 				break;
 
-			r += v;
-			c += u;
+			row += v;
+			col += u;
 		}
 		
 		//Re-assigns the values of y and x to r and c to check the other half of the line
-		r = pos.row; 
-		c = pos.col; 
+		row = position.row; 
+		col = position.col; 
 
-		while ((r >= 0 && c >= 0) && (r < grid.length && c < grid[r].length)) {
+		while ((row >= 0 && col >= 0) && (row < grid.length && col < grid[row].length)) {
 
-			if (grid[r][c].ruler == this && (r != pos.row || c != pos.col))
+			if (grid[row][col].ruler == position.ruler && (row != position.row || col != position.col))
 				count++;
-			else if (r != pos.row || c != pos.col)
+			else if (row != position.row || col != position.col)
 				break;
 
-			r += v * -1;
-			c += u * -1;
+			row += v * -1;
+			col += u * -1;
 
 		}
 
@@ -105,13 +107,19 @@ public class Plot_Four extends Boardgame
 			return true;
 		else if (n < 4) {
 			if (v + u == -1)
-				return win(grid, pos, v, 1, ++n);
+				return win(grid, position, v, 1, ++n);
 			else if (v + u == 0)
-				return win(grid, pos, 0, u, ++n);
+				return win(grid, position, 0, u, ++n);
 			else
-				return win(grid, pos, 1, u, ++n);
+				return win(grid, position, 1, u, ++n);
 		}
 		else
 			return false;
+	}
+
+	@Override
+	protected void setPlayers() {
+		// TODO Auto-generated method stub
+		
 	}
 }
