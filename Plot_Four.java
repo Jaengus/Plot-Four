@@ -30,29 +30,20 @@ public class Plot_Four extends Boardgame
 	protected void setUnits(int rows, int cols) 
 	{
 		Unit[][] discs = new Disc[rows][cols];
-		brigade = new Unit_Manager(discs);
 		
-		for(int row = 0; row < rows; row++) 
-		{
-			for(int col = 0; col < cols; col++) 
-			{
-				if(col < cols)
-				{
-					discs[row][col] = new Disc(new Player("Crow", "@capitanchuro"), new Circle(), "Red", 1, null);
-				}
-				else
-				{
-					discs[row][col] = new Disc(new Player("Jaengus", "@jaengus"), new Circle(), "Yellow", 2, null);
-				}
-			}
-		}
+		Player[] player1 = {new Player("Crow", "@capitanchuro")};
+		Player[] player2 = {new Player("Jaengus", "@jaengus")};
+		
+		discs[0][0] = new Disc(player1, new Circle(), "Red", 1, null);
+		discs[1][0] = new Disc(player2, new Circle(), "Yellow", 2, null);
+		
+		brigade = new Unit_Manager(discs);
 	}
 	
 	@Override
 	protected void setPlayers() 
 	{
 		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
