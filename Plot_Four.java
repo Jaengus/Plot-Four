@@ -7,6 +7,7 @@ import game.Monad;
 import game.Player;
 import game.Position;
 import game.Position_Manager;
+import game.Unit;
 import game.Unit_Manager;
 import boardgame.Boardgame;
 import plot_four.Disc;
@@ -23,20 +24,12 @@ public class Plot_Four extends Boardgame
 	{
 		Position[][] positions = new Position[rows][cols];
 		position_Manager = new Position_Manager(positions);
-		
-		for(int row = 0; row < rows; row++) 
-		{
-			for(int col = 0; col < cols; col++) 
-			{
-				positions[row][col] = new Position(null, null, "", 0);
-			}
-		}
 	}
 	
 	@Override
 	protected void setUnits(int rows, int cols) 
 	{
-		Monad[][] discs = new Disc[rows][cols];
+		Unit[][] discs = new Disc[rows][cols];
 		brigade = new Unit_Manager(discs);
 		
 		for(int row = 0; row < rows; row++) 
@@ -56,19 +49,22 @@ public class Plot_Four extends Boardgame
 	}
 	
 	@Override
+	protected void setPlayers() 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
 	protected void setGame() 
 	{
 		setUnits(2,21);
 		setGrid(6,7);
+		setPlayers();
 	}
 
 	@Override
-	public void play() 
-	{
-	}
-
-	@Override
-	protected boolean win(Position[][] grid, Position position, int v, int u, int n) 
+	protected Player[] win(Position[][] grid, Position position, int v, int u, int n) 
 	{
 		int row = position.row, col = position.col, count = 0;
 
@@ -104,7 +100,7 @@ public class Plot_Four extends Boardgame
 		//Recursively checks the area centering a unit before returning the value of the unit
 		//that won or 0.
 		if (count == 4)
-			return true;
+			return position.players;
 		else if (n < 4) {
 			if (v + u == -1)
 				return win(grid, position, v, 1, ++n);
@@ -114,12 +110,11 @@ public class Plot_Four extends Boardgame
 				return win(grid, position, 1, u, ++n);
 		}
 		else
-			return false;
+			return null;
 	}
-
+	
 	@Override
-	protected void setPlayers() {
-		// TODO Auto-generated method stub
-		
+	public void play() 
+	{
 	}
 }
